@@ -1,75 +1,48 @@
-# Nuxt 3 Minimal Starter
+# introduction
+i'm trying to create pages programmatically via `addTemplate()`,
+then watching for changes to the template via nuxt.hook `builder:watch`,
+then updating the templates when I edit the template via `updateTemplates()`.
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+- the "models" I have are `models/foo.js` and `models/bar.js`
+- the template is `runtime/qux.vue`
+- expect to have both `pages/admin/foo.vue` and `pages/admin/bar.vue`
+- only `pages/admin/bar.vue` is created and updated on subsequent edits to `runtime/qux.vue`
 
-## Setup
+# output
+```sh
+$ npm run dev
 
-Make sure to install the dependencies:
+> dev
+> nuxt dev
 
-```bash
-# npm
-npm install
+Nuxt 3.11.0 with Nitro 2.9.4                                                                                                                       3:55:21 PM
+                                                                                                                                                   3:55:21 PM
+  ➜ Local:    http://localhost:3000/
+  ➜ Network:  use --host to expose
 
-# pnpm
-pnpm install
+{ model: { name: 'foo' } }                                                                                                                         3:55:22 PM
+{ result:                                                                                                                                          3:55:22 PM
+   { src: '/home/user/tmp/nuxtexample/my-app/runtime/qux.vue',
+     dst: '/home/user/tmp/nuxtexample/my-app/pages/admin/foo.vue',
+     options: { model: [Object] },
+     write: true,
+     filename: 'runtime.qux.dcbdde06.vue' } }
+{ model: { name: 'bar' } }                                                                                                                         3:55:22 PM
+{ result:                                                                                                                                          3:55:22 PM
+   { src: '/home/user/tmp/nuxtexample/my-app/runtime/qux.vue',
+     dst: '/home/user/tmp/nuxtexample/my-app/pages/admin/bar.vue',
+     options: { model: [Object] },
+     write: true,
+     filename: 'runtime.qux.dcbdde06.vue' } }
+  ➜ DevTools: press Shift + Alt + D in the browser (v1.0.8)                                                                                        3:55:22 PM
 
-# yarn
-yarn install
-
-# bun
-bun install
+ℹ Vite client warmed up in 916ms                                                                                                                  3:55:24 PM
+ℹ Vite server warmed up in 946ms                                                                                                                  3:55:24 PM
+✔ Nuxt Nitro server built in 434 ms                                                                                                         nitro 3:55:24 PM
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+# filesystem
+```sh
+$ ls pages/admin/
+bar.vue
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

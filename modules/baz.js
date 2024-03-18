@@ -13,16 +13,27 @@ export default defineNuxtModule({
                 ]
                 for await (const _model of models) {
                         const model = await import(_model).then((m) => m.default)
-                        addTemplate({
+
+                        ////////////////////
+                        console.log({model})
+                        ////////////////////
+
+                        const result = addTemplate({
                                 src: resolve("../runtime/qux.vue"),
                                 dst: resolve(`../pages/admin/${model.name}.vue`),
                                 options: { model },
                                 write: true,
                         })
+
+                        /////////////////////
+                        console.log({result})
+                        /////////////////////
                 }
 
                 nuxt.hook("builder:watch", async (event, relativePath) => {
+                        //////////////////////////////////
                         console.log({event, relativePath})
+                        //////////////////////////////////
 
                         if (relativePath.startsWith("runtime")) {
                                 await updateTemplates()
