@@ -1,4 +1,6 @@
 import { defineNuxtModule, createResolver, addTemplate, updateTemplates } from "@nuxt/kit"
+import foo from "../models/foo"
+import bar from "../models/bar"
 
 export default defineNuxtModule({
         meta: {
@@ -8,11 +10,10 @@ export default defineNuxtModule({
         async setup(options, nuxt) {
                 const { resolve, resolvePath } = createResolver(import.meta.url)
                 const models = [
-                        resolvePath("../models/foo"),
-                        resolvePath("../models/bar"),
+                        foo,
+                        bar,
                 ]
-                for await (const _model of models) {
-                        const model = await import(_model).then((m) => m.default)
+                for (const model of models) {
                         addTemplate({
                                 src: resolve("../runtime/qux.vue"),
                                 dst: resolve(`../pages/admin/${model.name}.vue`),
@@ -25,7 +26,7 @@ export default defineNuxtModule({
                         console.log({event, relativePath})
 
                         if (relativePath.startsWith("runtime")) {
-                                await updateTemplates()
+                                updateTemplates()
                         }
                 })
         },

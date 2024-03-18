@@ -1,6 +1,6 @@
 <template>
         <div>
                 ${options.model.name}
-                foobar
+                zxyzxyyxzxc
         </div>
 </template>
