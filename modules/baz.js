@@ -19,6 +19,7 @@ export default defineNuxtModule({
                         ////////////////////
 
                         const result = addTemplate({
+                                filename: `${model.name}_whatever.vue`,
                                 src: resolve("../runtime/qux.vue"),
                                 dst: resolve(`../pages/admin/${model.name}.vue`),
                                 options: { model },
