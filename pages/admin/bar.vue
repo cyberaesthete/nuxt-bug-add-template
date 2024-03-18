@@ -1,6 +1,6 @@
 <template>
         <div>
                 bar
-                foobar
+                foobarbaz
         </div>
 </template>

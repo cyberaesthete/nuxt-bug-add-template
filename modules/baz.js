@@ -7,28 +7,31 @@ export default defineNuxtModule({
         },
         async setup(options, nuxt) {
                 const { resolve, resolvePath } = createResolver(import.meta.url)
-                const models = [
-                        resolvePath("../models/foo"),
-                        resolvePath("../models/bar"),
-                ]
-                for await (const _model of models) {
-                        const model = await import(_model).then((m) => m.default)
+                let result
 
-                        ////////////////////
-                        console.log({model})
-                        ////////////////////
+                const foo = await import(await resolvePath("../models/foo.js"))
+                result = addTemplate({
+                        src: resolve("../runtime/qux.vue"),
+                        dst: resolve(`../pages/admin/foo.vue`),
+                        filename: "foo_whatever.vue",
+                        options: { model: foo.default },
+                        write: true,
+                })
+                ////////////////////
+                console.log({result})
+                ////////////////////
 
-                        const result = addTemplate({
-                                src: resolve("../runtime/qux.vue"),
-                                dst: resolve(`../pages/admin/${model.name}.vue`),
-                                options: { model },
-                                write: true,
-                        })
-
-                        /////////////////////
-                        console.log({result})
-                        /////////////////////
-                }
+                const bar = await import(await resolvePath("../models/bar.js"))
+                result = addTemplate({
+                        src: resolve("../runtime/qux.vue"),
+                        dst: resolve(`../pages/admin/bar.vue`),
+                        filename: "bar_whatever.vue",
+                        options: { model: bar.default },
+                        write: true,
+                })
+                ////////////////////
+                console.log({result})
+                ////////////////////
 
                 nuxt.hook("builder:watch", async (event, relativePath) => {
                         //////////////////////////////////
